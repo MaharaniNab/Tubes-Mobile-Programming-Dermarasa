@@ -84,7 +84,7 @@ class _ScreenBreakState extends State<ScreenBreak> {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => Masuk()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

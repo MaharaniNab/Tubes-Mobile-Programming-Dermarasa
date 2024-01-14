@@ -41,6 +41,22 @@ dependencies:
   feather_icons: ^1.2.0
   material_symbols_icons: ^4.2713.0
   chat_bubbles: ^1.5.0
+  flutter_login: ^4.2.1
+  http: ^1.1.0
+  intl: ^0.18.1
+  provider: ^6.1.1
+  shared_preferences: ^2.0.5
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.13.6
+  firebase_auth: ^4.15.3
+  firebase_storage: ^11.5.6
+  # fluttertoast: ^8.2.4
+  font_awesome_flutter: ^10.6.0
+  google_sign_in: ^6.1.6
+  image_picker: ^1.0.6
+  flutter_launcher_icons: ^0.13.1
+  fluttericon: ^2.0.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +68,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo_dermarasa.png"
+  min_sdk_android:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -90,6 +111,7 @@ flutter:
   - assets/brimo_logo.png
   - assets/dana_logo.jpeg
   - assets/linkaja_logo.png
+  - assets/flat-color-icons_google.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

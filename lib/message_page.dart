@@ -1,3 +1,7 @@
+import 'package:dermarasa/activity_page.dart';
+import 'package:dermarasa/home_page.dart';
+import 'package:dermarasa/user_page.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +22,10 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        automaticallyImplyLeading: false,
+        title: const Center(
+          child: Text('Pesan'),
+        ),
       ),
       body: Column(
         children: [
@@ -32,6 +39,32 @@ class _MessagePageState extends State<MessagePage> {
           ),
           _buildMessageInput(),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 2,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.activity),
+            label: 'Activity',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.messageCircle),
+            label: 'Message',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.user),
+            label: 'User',
+          ),
+        ],
+        onTap: (index) {
+          // Change the page according to the selected index
+          _onBottomNavigationBarTap(context, index);
+        },
       ),
     );
   }
@@ -124,5 +157,41 @@ String getAutoReply(String userMessage) {
     return 'Sama-sama, semoga harimu menyenangkan!';
   } else {
     return 'Terima kasih atas pesanmu!\n Admin akan segera menghubungimu!\n';
+  }
+}
+
+// Function to handle bottom navigation bar taps
+void _onBottomNavigationBarTap(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+      break;
+    case 1:
+      // Activity Page;
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ActivityPage()),
+      );
+      break;
+    case 2:
+      // Message Page
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) => MessagePage(
+      //             title: '',
+      //           )),
+      // );
+      break;
+    case 3:
+      // User Page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfilePage()),
+      );
+      break;
   }
 }

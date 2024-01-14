@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790779504357",
+    "project_id": "dermarasa",
+    "storage_bucket": "dermarasa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790779504357:android:6f00f545e242c4b35b560c",
+        "android_client_info": {
+          "package_name": "com.example.dermarasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790779504357-a3h72fregb5mksp76tr01vmgq0ga3keg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwRa9sV3VSJ8BZyBErRw1977C_RG8zcdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790779504357-a3h72fregb5mksp76tr01vmgq0ga3keg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

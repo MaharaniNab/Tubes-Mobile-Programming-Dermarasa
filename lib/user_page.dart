@@ -1,87 +1,163 @@
+import 'dart:typed_data';
 import 'package:dermarasa/about_us_page.dart';
+import 'package:dermarasa/activity_page.dart';
+import 'package:dermarasa/buildlist.dart';
 import 'package:dermarasa/edit_profile_page.dart';
+import 'package:dermarasa/home_page.dart';
 import 'package:dermarasa/isi_saldo_page.dart';
+import 'package:dermarasa/message_page.dart';
 import 'package:dermarasa/pengaturan_page.dart';
-import 'package:flutter/material.dart';
+import 'package:dermarasa/utils.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  String? username;
+  String? email;
+  String? password;
+  Uint8List? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot<Map<String, dynamic>> userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        setState(() {
+          username = userDoc['username'];
+          email = userDoc['email'];
+          password = userDoc['password'];
+        });
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+  void selectImage() async {
+    List<int>? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = Uint8List.fromList(img);
+      });
+    }
+  }
+
+  // Function to update user information
+  void updateUserInformation(String newUsername, String newEmail) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).update({
+          'username': newUsername,
+          'email': newEmail,
+        });
+
+        // Fetch updated data
+        fetchUserData();
+      }
+    } catch (e) {
+      print('Error updating user information: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      appBar: AppBar(title: Text('Profile'), actions: [
+        // IconButton(
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back,
+        //   ),
+        // ),
+      ]),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Bagian atas: logo user dan tulisan edit profil
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Color.fromARGB(255, 230, 127, 96),
-                          width: 2.0,
-                        ),
+            SizedBox(height: 20),
+            Stack(
+              children: [
+                _image != null
+                    ? CircleAvatar(
+                        radius: 64,
+                        backgroundImage: MemoryImage(_image!),
+                      )
+                    : CircleAvatar(
+                        radius: 64,
+                        backgroundImage: NetworkImage(
+                            "https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.istockphoto.com%2Fid%2F1300845620%2Fid%2Fvektor%2Fikon-pengguna-datar-terisolasi-pada-latar-belakang-putih-simbol-pengguna-ilustrasi-vektor.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DQN0LOsRwA1dHZz9lsKavYdSqUUnis3__FQLtZTQ--Ro%3D&tbnid=TKFsruyOZwCqgM&vet=12ahUKEwjI09XAhs-DAxU2ZGwGHS1ED6UQMygAegQIARBO..i&imgrefurl=https%3A%2F%2Fwww.istockphoto.com%2Fid%2Fvektor%2Fikon-pengguna-datar-terisolasi-pada-latar-belakang-putih-simbol-pengguna-ilustrasi-gm1300845620-393045799&docid=cz--_9ZZl3WN7M&w=612&h=612&q=profil%20image&ved=2ahUKEwjI09XAhs-DAxU2ZGwGHS1ED6UQMygAegQIARBO"),
                       ),
-                      padding: EdgeInsets.all(6.0),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/profile.jpg',
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      'Lavender Arsya',
-                      style: GoogleFonts.poppins(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 230, 127, 96),
-                      ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      'lavender@gmail.com',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    IconButton(
-                      onPressed: () {
-                        // Navigasi ke halaman EditProfilePage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfilePage()),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        color: Color.fromARGB(255, 230, 127, 96),
-                      ),
-                    ),
-                  ],
-                ),
+                Positioned(
+                  child: IconButton(
+                    onPressed: selectImage,
+                    icon: Icon(Icons.add_a_photo),
+                  ),
+                  bottom: 10,
+                  left: 86,
+                )
+              ],
+            ),
+            Text(
+              '$username',
+              style: GoogleFonts.poppins(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 230, 127, 96),
               ),
             ),
+            Text(
+              '$email',
+              style: GoogleFonts.poppins(
+                fontSize: 14.0,
+                color: Colors.grey,
+              ),
+            ),
+            IconButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileEdit()),
+                );
 
-            // Bagian saldo, pengaturan, tentang kami, keluar
+                // Update the UI with the new data if result is not null
+                if (result != null) {
+                  setState(() {
+                    username = result['updatedUsername'];
+                    email = result['updatedEmail'];
+                  });
+                }
+              },
+              icon: Icon(
+                Icons.edit,
+                color: Color.fromARGB(255, 230, 127, 96),
+              ),
+            ),
             Column(
               children: [
-                buildListTile(Icons.monetization_on, 'Saldo', 'Rp.1.675.800',
+                buildListTile(Icons.monetization_on, 'Saldo', 'Rp.17.675.843',
                     () {
                   // Navigasi ke halaman SaldoPage
                   Navigator.push(
@@ -133,50 +209,118 @@ class UserPage extends StatelessWidget {
                   });
                 }),
               ],
-            ),
+            )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 3,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.activity),
+            label: 'Activity',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.messageCircle),
+            label: 'Message',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FeatherIcons.user),
+            label: 'User',
+          ),
+        ],
       ),
     );
   }
 
-  Widget buildListTile(
-      IconData icon, String title, String? subtitle, VoidCallback? onTap) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Color.fromARGB(255, 230, 127, 96),
-          width: 1.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: Color.fromARGB(255, 230, 127, 96),
-        ),
-        title: Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
+  // Function to show the edit dialog
+  Future<void> showEditDialog(BuildContext context) async {
+    TextEditingController usernameController =
+        TextEditingController(text: username);
+    TextEditingController emailController = TextEditingController(text: email);
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit Profile'),
+          content: Column(
+            children: [
+              TextField(
+                controller: usernameController,
+                decoration: InputDecoration(labelText: 'Username'),
+              ),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileEdit()),
+                );
+
+                // Update the UI with the new data if result is not null
+                if (result != null) {
+                  setState(() {
+                    username = result['updatedUsername'];
+                    email = result['updatedEmail'];
+                  });
+                }
+              },
+              icon: Icon(
+                Icons.edit,
                 color: Color.fromARGB(255, 230, 127, 96),
               ),
             ),
-            const SizedBox(width: 75.0), // Spacer
-            if (subtitle != null)
-              Text(subtitle, style: TextStyle(color: Colors.grey)),
           ],
-        ),
-        onTap: onTap,
-      ),
+        );
+      },
     );
   }
 }
 
-// Tambahkan import halaman-halaman baru
-//import 'edit_profile_page.dart';
-//import 'saldo_page.dart';
-//import 'pengaturan_page.dart';
-//import 'tentang_kami_page.dart';
+// Function to handle bottom navigation bar taps
+void _onBottomNavigationBarTap(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+      break;
+    case 1:
+      // Activity Page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ActivityPage()),
+      );
+      break;
+    case 2:
+      // Message Page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MessagePage(
+                  title: '',
+                )),
+      );
+      break;
+    case 3:
+      // User Page
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => ProfilePage()),
+      // );
+      break;
+  }
+}

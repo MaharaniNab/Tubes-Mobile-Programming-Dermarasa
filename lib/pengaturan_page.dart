@@ -72,7 +72,7 @@ class PengaturanPage extends StatelessWidget {
           // Setelah melakukan penyimpanan, arahkan ke halaman UserPage
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => UserPage()),
+            MaterialPageRoute(builder: (context) => ProfilePage()),
           );
         },
         style: ElevatedButton.styleFrom(

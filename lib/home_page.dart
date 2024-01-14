@@ -69,9 +69,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white, // Set warna latar belakang menjadi putih
+        automaticallyImplyLeading: false, // Nonaktifkan ikon kembali otomatis
+
         title: Row(
           children: [
-            // Dermarasa logo in an ellipse
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -87,7 +89,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(width: 14),
-            // Search column
             Expanded(
               child: Padding(
                 padding:
@@ -486,7 +487,7 @@ class _HomePageState extends State<HomePage> {
         // User Page
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => UserPage()),
+          MaterialPageRoute(builder: (context) => ProfilePage()),
         );
         break;
     }
