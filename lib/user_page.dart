@@ -83,16 +83,11 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile'), actions: [
-        // IconButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //   ),
-        // ),
-      ]),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Center(
+            child: Text('Profil'),
+          )),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -234,6 +229,10 @@ class _ProfilePageState extends State<ProfilePage> {
             label: 'User',
           ),
         ],
+        onTap: (index) {
+          // Change the page according to the selected index
+          _onBottomNavigationBarTap(context, index);
+        },
       ),
     );
   }
