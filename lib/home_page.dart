@@ -340,9 +340,15 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
+        selectedItemColor:
+            Color.fromARGB(255, 230, 127, 96), // Set selected item color
+        unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(FeatherIcons.home),
+            icon: Icon(
+              FeatherIcons.home,
+              color: Color.fromARGB(255, 230, 127, 96), // Ubah warna ikon
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(

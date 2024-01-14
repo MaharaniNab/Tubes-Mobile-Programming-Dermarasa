@@ -85,6 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
+          backgroundColor: Color.fromARGB(255, 230, 127, 96),
           title: const Center(
             child: Text('Profil'),
           )),
@@ -211,6 +212,9 @@ class _ProfilePageState extends State<ProfilePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 3,
         type: BottomNavigationBarType.fixed,
+        selectedItemColor:
+            Color.fromARGB(255, 230, 127, 96), // Set selected item color
+        unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
             icon: Icon(FeatherIcons.home),
@@ -221,11 +225,16 @@ class _ProfilePageState extends State<ProfilePage> {
             label: 'Activity',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FeatherIcons.messageCircle),
+            icon: Icon(
+              FeatherIcons.messageCircle,
+            ),
             label: 'Message',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FeatherIcons.user),
+            icon: Icon(
+              FeatherIcons.user,
+              color: Color.fromARGB(255, 230, 127, 96), // Ubah warna ikon
+            ),
             label: 'User',
           ),
         ],

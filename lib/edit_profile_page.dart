@@ -31,6 +31,10 @@ class _ProfileEditState extends State<ProfileEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
+        title: Text('Edit Profil'),
+      ),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(16),
@@ -43,10 +47,10 @@ class _ProfileEditState extends State<ProfileEdit> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Edit Profil',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   'Edit Profil',
+              //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              // ),
               SizedBox(height: 16),
               TextFormField(
                 controller: usernameController,

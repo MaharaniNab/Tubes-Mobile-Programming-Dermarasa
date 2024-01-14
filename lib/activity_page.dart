@@ -11,6 +11,7 @@ class ActivityPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
         title: const Center(
           child: Text('Riwayat Donasi'),
         ),
@@ -37,13 +38,19 @@ class ActivityPage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         type: BottomNavigationBarType.fixed,
+        selectedItemColor:
+            Color.fromARGB(255, 230, 127, 96), // Set selected item color
+        unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
             icon: Icon(FeatherIcons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FeatherIcons.activity),
+            icon: Icon(
+              FeatherIcons.activity,
+              color: Color.fromARGB(255, 230, 127, 96), // Ubah warna ikon
+            ),
             label: 'Activity',
           ),
           BottomNavigationBarItem(

@@ -7,6 +7,7 @@ class PengaturanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
         title: Text(
           'Pengaturan',
           style: GoogleFonts.poppins(fontSize: 20.0),

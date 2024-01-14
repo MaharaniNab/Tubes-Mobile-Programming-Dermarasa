@@ -6,6 +6,7 @@ class IsiSaldoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
         title: Text(
           'Isi Saldo',
           style: GoogleFonts.poppins(),

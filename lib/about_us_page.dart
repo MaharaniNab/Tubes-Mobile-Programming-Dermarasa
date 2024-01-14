@@ -6,6 +6,7 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
         title:
             Text('Tentang Dermarasa', style: GoogleFonts.poppins(fontSize: 20)),
       ),

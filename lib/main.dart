@@ -25,6 +25,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Dermarasa',
         home: SplashScreen(),
+        theme: ThemeData(
+          // Set the primary color to your desired color
+          primaryColor: Color.fromARGB(255, 230, 127, 96),
+          // You can customize more theme properties here
+        ),
       ),
     );
   }
