@@ -38,6 +38,7 @@ class _PenggalanganDanaPageState extends State<PenggalanganDanaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
         title: Text(
           'Penggalangan Dana',
           style: GoogleFonts.poppins(fontSize: 20.0),

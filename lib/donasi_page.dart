@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dermarasa/activity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,15 +10,32 @@ class DonasiPage extends StatefulWidget {
 
 class _DonasiPageState extends State<DonasiPage> {
   TextEditingController _nominalController = TextEditingController();
+
+  void saveDonationToFirestore() async {
+    String nominal = _nominalController.text;
+    // String doa = // Get the value from the TextFormField;
+
+    await FirebaseFirestore.instance.collection('dana').add({
+      'nominal': nominal,
+      // 'doa': doa,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+
+    // Optionally, navigate to the ActivityPage after saving
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ActivityPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            SizedBox(width: 0),
-            Text('Masukkan Nominal', style: GoogleFonts.poppins()),
-          ],
+        backgroundColor: Color.fromARGB(255, 230, 127, 96),
+        title: Text(
+          'Masukkan Nominal',
+          style: GoogleFonts.poppins(fontSize: 20.0),
         ),
       ),
       body: Padding(
@@ -66,6 +85,23 @@ class _DonasiPageState extends State<DonasiPage> {
                 PaymentMethodButton(imagePath: 'assets/dana_logo.jpeg'),
                 PaymentMethodButton(imagePath: 'assets/linkaja_logo.png'),
               ],
+            ),
+            SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  saveDonationToFirestore();
+                },
+                child: Text('Donasi Sekarang'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+              ),
             ),
           ],
         ),
