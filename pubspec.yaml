@@ -112,6 +112,7 @@ flutter:
   - assets/dana_logo.jpeg
   - assets/linkaja_logo.png
   - assets/flat-color-icons_google.svg
+  - assets/user.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

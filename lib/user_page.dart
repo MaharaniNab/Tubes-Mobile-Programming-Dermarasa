@@ -103,13 +103,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     : CircleAvatar(
                         radius: 64,
-                        backgroundImage: NetworkImage(
-                            "https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.istockphoto.com%2Fid%2F1300845620%2Fid%2Fvektor%2Fikon-pengguna-datar-terisolasi-pada-latar-belakang-putih-simbol-pengguna-ilustrasi-vektor.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DQN0LOsRwA1dHZz9lsKavYdSqUUnis3__FQLtZTQ--Ro%3D&tbnid=TKFsruyOZwCqgM&vet=12ahUKEwjI09XAhs-DAxU2ZGwGHS1ED6UQMygAegQIARBO..i&imgrefurl=https%3A%2F%2Fwww.istockphoto.com%2Fid%2Fvektor%2Fikon-pengguna-datar-terisolasi-pada-latar-belakang-putih-simbol-pengguna-ilustrasi-gm1300845620-393045799&docid=cz--_9ZZl3WN7M&w=612&h=612&q=profil%20image&ved=2ahUKEwjI09XAhs-DAxU2ZGwGHS1ED6UQMygAegQIARBO"),
+                        backgroundColor: Colors.white,
+                        backgroundImage: AssetImage('assets/user.png'),
                       ),
                 Positioned(
                   child: IconButton(
                     onPressed: selectImage,
                     icon: Icon(Icons.add_a_photo),
+                    color: Color.fromARGB(255, 230, 127, 96),
                   ),
                   bottom: 10,
                   left: 86,
